@@ -57,10 +57,22 @@ def registro(request):
 		if form.is_valid():
 			nombre = form.cleaned_data['Nombre']
 			apellido = form.cleaned_data['Apellido']
-			paciente = Paciente.objects.create(nombre,apellido, Edad='1997-08-26 01:43:52-04',sexo='M',fecha_ini='2020-10-27 01:43:52-04',user='1')
-			print("Aqui")
-			print(paciente)
-
+			cedula = form.cleaned_data['Cedula']
+			edad = form.cleaned_data['Edad']
+			sexo = form.cleaned_data['sexo']
+			direccion = form.cleaned_data['Direccion']
+			ocupacion = form.cleaned_data['Ocupacion']
+			correo = form.cleaned_data['Correo']
+			motivo = form.cleaned_data['Motivo']
+			fecha_ini = form.cleaned_data['fecha_ini']
+			u = User.objects.all()
+			user = list(u)
+			first = user[0]
+			perfil = Paciente.objects.create(**form.cleaned_data,user=first)
+			print("paso")
+			foto_basica = Foto.objects.create(ruta='../static/img/muelo.jpg',username=perfil)
+		else:
+			print("no entro")
 	return render(request, 'consultorio/Registro.html',{})
 
 def historias(request):
