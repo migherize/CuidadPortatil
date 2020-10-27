@@ -1,0 +1,47 @@
+{% extends 'consultorio/main.html' %}
+
+{% load static %}
+{% block content %}
+<div>
+	<div class="title is-4" style="text-align:center; color: black; padding-top: 10px; background: mediumorchid;">
+		<h4>Sistema de Administracion Cuidad Portatil</h4>
+	  </div>
+          <div class="columns">
+	            <div class="column is-6"> 
+	              <div class="card">
+	                <a href="{% url 'registro' %}">
+	                  <div class="card-image">
+	                    <figure class="image is-2by1">
+	                      <img src="{% static 'img/registro.jpg' %}" alt="Placeholder image">
+	                    </figure>
+	                  </div>
+	                </a>
+	              </div>
+	            </div>
+	            <div class="column is-6">
+	              <div class="card">
+	                <a href="{% url 'historias' %}">
+	                  <div class="card-image">
+	                    <figure class="image is-2by1">
+	                      <img src="{% static 'img/historias.png' %}" alt="Placeholder image">
+	                    </figure>
+	                  </div>
+	                </a>
+	              </div>
+	            </div>
+          </div>
+          <div class="columns">
+	            <div class="column is-6"> 
+	              <div class="card">
+	                <a href="{% url 'calendario' %}">
+	                  <div class="card-image">
+	                    <figure class="image is-256x256">
+	                      <img src="{% static 'img/citas.jpg' %}" alt="Placeholder image">
+	                    </figure>
+	                  </div>
+	                </a>
+	              </div>
+	            </div>
+    		</div>
+</div>
+{% endblock %}

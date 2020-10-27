@@ -1,0 +1,169 @@
+*{
+	font-family: arial;
+}
+
+#{
+	display: flex;
+	flex-direction: column;
+}
+
+/* fas iconos*/
+form {
+	padding-top: 100px;
+
+}
+/* fas iconos*/
+
+/* a con efecto*/
+
+a.ejemplo1 {
+	padding: 8px;
+	font-size: 20px;
+	color: white;
+ 	background: linear-gradient(180deg, #65bce8 0%, #306485 100%); 
+ 	text-align: center;
+}
+a.ejemplo1:hover {
+    background: linear-gradient(180deg, #fbde74 0%, #ff9900 100%);
+    transition: all .3s;
+}
+
+/* a con efecto*/
+
+/* imagen de tegnologia con hover*/
+
+#imagen{
+	width: 1200px;
+	height: 400px;
+	background: url(../img/tegnologia-odontologia.jpg);
+
+}
+
+#info{
+	position: absolute;
+	overflow: hidden;
+	width: 1200px;
+	height: 400px;
+	background-color: rgba(31,31,31,0.9);
+	-webkit-transition:opacity 0.2;
+	opacity: 0;
+}
+
+#imagen:hover{
+	opacity: 1;
+}
+
+#info:hover{
+	opacity: 1;
+}
+
+table#headline {
+	position: absolute;
+	-webkit-transition:margin 0.2s;
+	margin-left: -70px;
+	font-size: 21px;
+}
+
+div#imagen:hover p#headline{
+	margin-left: 70px;
+}
+
+.tab{
+   width: 33%;
+   text-align: center;
+   vertical-align: top;
+}
+
+/* imagen de tegnologia con hover*/
+
+
+
+
+
+/* diagonal*/
+.sec3
+{
+	width: 100%;
+	height: 500px;
+	background: #ffeb3b;
+	position: relative;
+}
+.sec4
+{
+
+	width: 100%;
+	height: 500px;
+	background: #262626;
+	position: relative;
+
+}
+
+.sec4:before
+{
+	content: '';
+	width: 30%;
+	height: 87px;
+	position: absolute;
+	top: -43px;
+	left: 0;
+	background-image: linear-gradient(141deg,#159dc6 0,#3298dc 100%,#4389e5 100%);
+	transform: skewY(12deg);
+}
+
+/* digonal */
+
+/* carta */
+
+#sec3
+{
+	width: 100%;
+	height: 500px;
+	position: relative;
+}
+#sec4
+{
+
+	width: 100%;
+	height: 500px;
+	position: relative;
+
+}
+
+#sec4:before
+{
+	content: '';
+	width: 50%;
+	height: 80px;
+	position: absolute;
+	top: -90px;
+	left: 0;
+	background-image: linear-gradient(141deg,#159dc6 0,#3298dc 100%,#4389e5 100%);
+	transform: skewY(8deg);
+}
+
+#sec4:after
+{
+	content: '';
+	width: 50%;
+	height: 80px;
+	position: absolute;
+	top: -90px;
+	right: 0;
+	background-image: linear-gradient(141deg,#159dc6 0,#3298dc 100%,#4389e5 100%);
+	transform: skewY(-8deg);
+}
+/* carta */
+
+/* ciudad_portatil */
+
+#bodyMenu {
+	line-height: 5;
+}
+
+/* ciudad_portatil */
+
+/* Registro */
+.odontodiagrama1 button{
+
+}
+/* Registro */

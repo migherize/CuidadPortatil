@@ -1,0 +1,57 @@
+{% extends 'consultorio/main.html' %}
+{% load static %}
+
+{% block title%} Historias {% endblock %}
+
+{% block historias %}   
+    <div class="title is-4" style="text-align:center; color: black; padding-top: 10px; background: mediumorchid;">
+    <h4>Buscar Historia</h4>
+     </div>
+  <div class="container">
+    <div class="field has-addons" style="justify-content:center">
+      <div class="control"> 
+        <input class="input" type="text" placeholder="" style="width: 300px;">
+      </div>
+      <div class="control">
+        <a class="button is-info">
+          Buscar
+        </a>
+      </div>
+    </div>
+      <div class="control" style="color:black; justify-content:center;">
+        <label class="radio" >
+          <input type="radio" name="answer" checked>
+          Cedulas
+        </label>
+        <label class="radio" style="float: right;">
+          <input type="radio" name="answer">
+          Apellidos
+        </label>
+      </div>
+    </div>
+    <table class="table is-fullwidth is-striped is-hoverable" style="background: transparent;">
+      <thead>
+        <tr>
+          <th title="Position">Cedula</th>
+          <th>Nombre y Apelllido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="is-selected">
+            <th></th>
+            <td> <button class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">+</button>
+            </td>
+        </tr>
+      </tbody>
+  </table>
+
+{% endblock %}
+
+{% block js %} 
+    <script type="text/javascript">
+        let calendar = new Calendar('calendar');
+        calendar.getElement().addEventListener('change', e => {
+            console.log(calendar.value().format('LLL'));
+        });
+      </script>
+{% endblock %}

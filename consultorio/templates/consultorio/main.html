@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title%} CUIDAD PORTATIL {% endblock %}</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+  <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+    <section class="hero is-info is-fullheight" style="background: hsl(204, 86%, 53%);">
+        <!-- Hero head: will stick at the top -->
+      <div class="hero-head" id="bodyMenu">
+          <header class="navbar">
+            <div class="container" style="
+            margin-left: 50px;
+            margin-right: 50px;">
+              <div class="navbar-brand">
+                <img class="" src="{% static 'img/logo.jpeg' %}" width="200px" style="padding-top: 5px;padding-bottom: 8px;">
+                <span class="navbar-burger burger" data-target="navbarMenuHeroC">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </div>
+              <div id="navbarMenuHeroC" class="navbar-menu">
+                <div class="navbar-end" style="margin-left: 712px;">
+                  <a class="navbar-item is-active" href="{% url 'main'%}">
+                    Home
+                  </a>
+                  <a class="navbar-item" href="{% url 'calendario'%}">
+                    Citas
+                  </a>
+                  <a class="navbar-item">
+                    Galeria
+                  </a>
+                  <span class="navbar-item">
+                    <a class="button is-success is-inverted" href="{% url 'logout' %}">
+                      <span class="icon">
+                        <i class="fas fa-tooth"></i>
+                      </span>
+                      <span style="color: black;">Cerrar Sesion</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </header>
+      </div>
+      <section class="hero is-link" style="background: hsl(0, 0%, 96%); margin-bottom: 100px;">
+      <div class="columns">
+        <div class="column is-3">
+          <aside class="menu" style="background: hsl(204, 86%, 53%); height: 100%;padding-top: 60px;">
+            <div style="padding-left: 30px;">
+                <h4 class="title is-5" style="color: white;">Bienvenido Dc. {{user}}</h4>
+                <p class="menu-label" style="color: black;">
+                  General
+               </p>
+                <ul class="menu-list">
+                    <li><a href="{% url 'registro' %}">Registro de Paciente</a></li>
+                    <li><a href="{% url 'historias' %}">Historias</a></li>
+                    <li><a href="{% url 'calendario' %}">Citas</a></li>
+                </ul>
+              </div> 
+                <div class="root">
+                  <div class="calendar" id="calendar">
+                    
+                  </div>
+            </aside>
+        </div>
+        <div class="column is-8">
+         
+          
+          {% block content %} {% endblock %}
+          {% block historias %} {% endblock %}
+          {% block calendario %} {% endblock %}
+          {% block registro %} {% endblock %}
+         
+        </div>
+        <div class="column is-1">
+            <aside class="menu" style="background: hsl(204, 86%, 53%); height: 100%;">
+                
+            </aside>
+        </div>
+        
+      </div>
+    </div>
+    
+    </section>
+        </div>
+    </section>
+    
+</body>
+<script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/es.js"></script>
+<script  type="text/javascript" src="{% static 'js/calendar.js' %}"></script>
+<script  type="text/javascript" src="{% static 'js/index.js' %}"></script>
+{% block js %} {% endblock %}
+
+
+</html>

@@ -1,0 +1,489 @@
+{% extends 'consultorio/main.html' %}
+{% load static %}
+
+{% block title%} Registro {% endblock %}
+
+{% block calendario %}   
+<form action="" id="formulario" name="formulario" onsubmit=" validacion()" style="padding: 0px 0px;" method="POST">
+  {% csrf_token %}
+    <div class="title is-5" style="text-align:center; color: black; padding-top: 10px; background: #edd9f2;">
+        <h1>REGISTRO DE PACIENTE</h1>
+    </div>
+    <div class="title is-4" style="text-align:center; color: black; padding-top: 10px; background: mediumorchid;">
+      <h4>Datos Personales</h4>
+    </div>
+    <div class="columns">
+      <div class="column is-6">
+        <div class="container">
+              <div class="field">
+                    <label class="label">Nombre:</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" type="text" placeholder="Nombre del paciente" value="" name="Nombre" id="Nombre">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i id="Ncheck" class="fas"></i>
+                        </span>
+                    </div>           
+              </div>
+              <div class="field">
+                <label class="label">Apellido:</label>
+                <div class="control has-icons-left has-icons-right">
+                      <input class="input" type="text" placeholder="Apellido del paciente" value="" name="Apellido" id="Apellido">
+                      <span class="icon is-small is-left">
+                          <i class="fas fa-user"></i>
+                      </span>
+                      <span class="icon is-small is-right">
+                        <i id="Acheck" class="fas"></i>
+                      </span>
+                </div>
+              </div>
+           
+            <div class="field">
+              <label class="label">C.I.:</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input" type="text" placeholder="Cedula" value="" name="Cedula" id="idPaciente">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i id="Ccheck" class="fas"></i>
+              </span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Edad:</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input" type="text" placeholder="Edad" value="" name="Edad" id="Edad">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i id="Echeck" class="fas"></i>
+              </span>
+              </div>
+          </div>
+                <div class="field">
+                  <label class="label">Foto:</label>
+                  <div class="file has-name">
+                    <label class="file-label">
+                      <input class="file-input" type="file" name="resume">
+                      <span class="file-cta">
+                        <span class="file-icon">
+                          <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                          Choose a file…
+                        </span>
+                      </span>
+                      <span class="file-name" style="color: black;">
+                        Screen Shot 2017-07-29 at 15.54.25.png
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <div class="field" style="padding-top: 30px;"> 
+                    <label class="label" required> 
+                      <i class="fas fa-venus-mars"> </i> Sexo: 
+                      <label class="radio" style="margin-left: 20px;">
+                        <input type="radio" name="Sexo" value="F"> <span class=" tag is-danger"> Femenino</span>
+                      </label>
+                      <label class="radio" style="float: right;">
+                        <input type="radio" name="Sexo" value="M"> <span class=" tag is-link">  Masculino</span>
+                      </label>
+                    </label>
+                  </div>
+                      
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="container">
+          <div class="field">
+            <label class="label">Direccion:</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" type="text" placeholder="Direccion" value="" name="Direccion" id="Direccion">
+              <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i id="Dcheck" class="fas"></i>
+              </span>
+          </div>
+          </div>
+          <div class="field">
+            <label class="label">Ocupación:</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" type="text" placeholder="Trabajo" value="" name="Ocupacion" id="Ocupacion">
+              <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i id="Ocheck" class="fas"></i>
+              </span>
+          </div>
+          </div>
+          <div class="field">
+            <div class="columns">
+              <div class="column">
+              <label class="label">Telefono</label>   
+              <div class="field has-addons">
+                <p class="control">
+                  <span class="select">
+                    <select>
+                      <option>+</option>
+                      <option>0416</option>
+                      <option>0426</option>
+                      <option>0412</option>
+                      <option>0414</option>
+                      <option>0424</option>
+                    </select>
+                  </span>
+                </p>
+                <p class="control is-expanded">
+                  <input class="input" type="text" placeholder="Telefono">
+                </p>
+                <p class="control">
+                </p>
+              </div>
+              </div>
+              <div class="column">
+                <label class="label">Telefono Casa</label> 
+                <div class="field has-addons">
+                  <p class="control">
+                    <span class="select">
+                      <select>
+                        <option>+</option>
+                        <option>0416</option>
+                        <option>0426</option>
+                        <option>0412</option>
+                        <option>0414</option>
+                        <option>0424</option>
+                      </select>
+                    </span>
+                  </p>
+                  <p class="control is-expanded">
+                    <input class="input" type="text" placeholder="Telefono">
+                  </p>
+                  <p class="control">
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>                    
+          <div class="field">
+            <label class="label">Email</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input is-danger" type="email" placeholder="Email input" value="">
+              </div>
+          
+          </div>                         
+          <div class="field">
+            <label class="label">Motivo:</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Text input">
+            </div>
+          </div>
+          <div class="field"> 
+            <label  class="label" for="fecha" style="color: black;">Fecha de Registro:</label>
+            <input type="date" id="birthday" name="birthday">
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="container">
+      <div class="title is-4" style="text-align:center; color: black; padding-top: 10px; background: mediumorchid;">
+        <h4>Antecedentes Médicos Odontologicos</h4>
+      </div>
+      <div class="field">
+        <label class="label">Antecedente Patólogicos Personales:</label>
+        <div class="control">
+            <input class="input" type="text" placeholder="Text input">
+        </div>
+      </div>
+        <div class="field">
+          <label class="label">Antecedente Patólogicos Familiares:</label>
+          <div class="control">
+              <input class="input" type="text" placeholder="Text input">
+          </div>
+        </div>
+          <div class="field">
+            <label class="label">Reacciones Alergica o Medicamentos:</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Text input">
+            </div>
+          </div>
+            <div class="field">
+              <label class="label">Antecedente de Hemorragias:</label>
+              <div class="control">
+                  <input class="input" type="text" placeholder="Text input">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Está tomando algun medicamento:</label>
+              <div class="control">
+                  <input class="input" type="text" placeholder="Text input">
+              </div>
+            </div>
+              
+    </div>
+              
+<div class="container">
+  <div class="field" style="color: black;">
+           <div class="title is-6" style="text-align:center; color: black; padding-top: 10px; background: cadetblue;">
+             <h4>Hábitos Cepillado</h4>
+           </div>
+               <table style="width:100%;"> 
+                 <tr style="border: 100px">
+                       <td style="width: 33%;">Fuma</td>
+                       <td style="width: 33%;"> 
+                           <div class="field">
+                               <div class="control">
+                                   <label class="radio">
+                                       <input type="radio" name="fuma" onclick="preguntasF()">
+                                   Yes
+                                   </label>
+                                   <label class="radio">
+                                       <input type="radio" name="fuma" onclick="limpiarF()">
+                                   No
+                                   </label>
+                               </div>
+                               <div id="crear_preguntaF">
+                               </div>
+                           </div>
+                       </td>
+                     </tr>
+                     <tr>
+                       <td style="width: 33%;">Café</td>
+                       <td style="width: 33%;">                        
+                         <div class="field">
+                           <div class="control">
+                               <label class="radio">
+                                   <input type="radio" name="cafe" onclick="preguntasC()">
+                               Yes
+                               </label>
+                               <label class="radio">
+                                   <input type="radio" name="cafe" onclick="limpiarC()">
+                               No
+                               </label>
+                           </div>
+                           <div id="crear_preguntaC">
+                           </div>
+                         </div> 
+                       </td>
+                     </tr>
+                       <tr>
+                           <td style="width: 33%;">Otros:</td>
+                           <td style="width: 33%;"> 
+                             <div class="field">
+                               <div class="control">
+                                 <label class="radio">
+                                     <input type="radio" name="otros" onclick="preguntasO()">
+                                 Yes
+                                 </label>
+                                 <label class="radio">
+                                     <input type="radio" name="otros" onclick="limpiarO()">
+                                 No
+                                 </label>
+                               </div>
+                             <div id="crear_preguntaO">
+                             </div>
+                           </div>  </td>
+                       </tr>
+               </table>  			
+     </div>
+               <div class="field">
+                 <div class="title is-6" style="text-align:center; color: black; padding-top: 10px; background:#edd9f2;">
+                   <h4>EXAMEN CLINICO ODONTOLOGICO INTRABUCAL:</h4>
+                 </div>
+                   <label class="label"></label>
+                   <div class="control">
+                     <textarea class="textarea" placeholder="Textarea"></textarea>
+                   </div>
+               </div>
+               <div class="field" style="color: black; ">
+                 <div class="title is-6" style="text-align:center; color: black; padding-top: 10px; background: mediumorchid;">
+                   <h4>EXAMEN CLINICO ODONTOLOGICO EXTRABUCAL</h4>
+                 </div>
+                 <table style="width:100%;"> 
+                   <tr style="border: 100px">
+                     <td style="width: 30%;">Perfil</td>
+                     <td style="width: 70%;"> 
+                       <div class="field">
+                         <div class="control">
+                           <input class="input" type="text" placeholder="Text input">
+                         </div>
+                       </div>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style="width: 30%;">Piel o Mucosa</td>
+                     <td style="width: 70%;"> 
+                       <div class="field">
+                         <div class="control">
+                           <input class="input" type="text" placeholder="Text input">
+                         </div>
+                       </div>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style="width: 30%;">ATM:</td>
+                     <td style="width: 70%;"> 
+                       <div class="field">
+                         <div class="control">
+                           <input class="input" type="text" placeholder="Text input">
+                         </div>
+                       </div>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style="width: 33%;">Otros:</td>
+                     <td style="width: 33%;"> 
+                       <div class="field">
+                         <div class="control">
+                           <input class="input" type="text" placeholder="Text input">
+                         </div>
+                       </div>
+                     </td>
+                   </tr>
+                 </table> 
+                 <div class="title is-6" style="text-align:center; color: black; padding-top: 10px; background: mediumorchid;">
+                   <h4>ODONTODIAGRAMA</h4>
+                 </div>			
+               <div class="odontodiagrama">
+                 <button style="background: red; margin-left: 3px">-</button>
+                 <button style="margin-left: 8px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="margin-left: 6px;">-</button>
+                 <button style="margin-left: 6px;">-</button>
+                 <button style="margin-left: 3px;">-</button>
+                 <button style="margin-left: 2px;">-</button>
+                 <button style="margin-left: 4px;">-</button>
+                 <button style="margin-left: 16px;">-</button>
+                 <button style="margin-left: 6px;">-</button>
+                 <button style="margin-left: 4px;">-</button>
+                 <button style="margin-left: 2px;">-</button>
+                 <button style="margin-left: 4px;">-</button>
+                 <button style="margin-left: 8px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="background: red; margin-left: 30px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="margin-left: 8px;">-</button>
+                 <button style="margin-left: 2px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: 2px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="margin-left: 5px;">-</button>
+               </div>
+               <div class="columns" style="margin-top: 10px; margin-bottom: 10px;">
+                   <div class="columnn is-6" style="padding-right: 10px; padding-left: 10px;">
+                     <figure class="image is-480x480">
+                     <div style="width: 100%;height: 272px; background-image: url(/static/img/odonto1.png);background-size: contain;">
+                       <button style="background: red; margin-left: 6px;margin-top: 160px;">-</button>
+                       <button style="background: red; margin-left: 12px;margin-top: 160px;">-</button>
+                       <button style="background: red; margin-left: 15px;margin-top: 160px;">-</button>
+                       <button style="background: red; margin-left: 6px;margin-top: 160px;">-</button>
+                       <button style="background: red; margin-left: 7px;margin-top: 160px;">-</button>
+                     
+
+                       <button style="background: red; margin-left: 195px;margin-top: 160px;">-</button>
+                       <button style="background: red; margin-left: 2px;margin-top: 160px;">-</button>
+                       <button style="background: red; margin-left: 7px;margin-top: 160px;">-</button>
+                       <button style="background: red; margin-left: 13px;margin-top: 160px;">-</button>
+                       <button style="background: red; margin-left: 10px;margin-top: 160px;">-</button>
+                     </div>
+                     
+                     </figure>
+                   </div>
+                   <div class="columns is-6" style="padding-right: 10px; margin-top: 5px;" >
+                     <figure class="image is-480x480">
+                       <div style="width: 100%;height: 272px; background-image: url(/static/img/odonto2.png);background-size: contain;">
+                         <button style="background: red; margin-left: 6px;margin-top: 150px;">-</button>
+                         <button style="background: red; margin-left: 12px;margin-top: 150px;">-</button>
+                         <button style="background: red; margin-left: 15px;margin-top: 100px;">-</button>
+                         <button style="background: red; margin-left: 6px;margin-top: 150px;">-</button>
+                         <button style="background: red; margin-left: 7px;margin-top: 150px;">-</button>
+                       
+
+                         <button style="background: red; margin-left: 195px;margin-top: 160px;">-</button>
+                         <button style="background: red; margin-left: 2px;margin-top: 160px;">-</button>
+                         <button style="background: red; margin-left: 7px;margin-top: 160px;">-</button>
+                         <button style="background: red; margin-left: 13px;margin-top: 160px;">-</button>
+                         <button style="background: red; margin-left: 10px;margin-top: 160px;">-</button>
+                       </div>
+                       </figure>
+                   </div>
+               </div>
+               </div>
+               <div>
+                 <button style="background: red; margin-left: 3px">-</button>
+                 <button style="margin-left: 8px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="margin-left: 6px;">-</button>
+                 <button style="margin-left: 6px;">-</button>
+                 <button style="margin-left: 3px;">-</button>
+                 <button style="margin-left: 2px;">-</button>
+                 <button style="margin-left: 4px;">-</button>
+                 <button style="margin-left: 16px;">-</button>
+                 <button style="margin-left: 6px;">-</button>
+                 <button style="margin-left: 4px;">-</button>
+                 <button style="margin-left: 2px;">-</button>
+                 <button style="margin-left: 4px;">-</button>
+                 <button style="margin-left: 8px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="background: red; margin-left: 30px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="margin-left: 8px;">-</button>
+                 <button style="margin-left: 2px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: px;">-</button>
+                 <button style="margin-left: 2px;">-</button>
+                 <button style="margin-left: 10px;">-</button>
+                 <button style="margin-left: 5px;">-</button>
+               </div>
+               <div class="field">
+                 <label class="label">Diagnostico Odontologico:</label>
+                 <div class="control">
+                   <textarea class="textarea" placeholder="Textarea"></textarea>
+                 </div>
+               </div>
+               <div class="field is-grouped">
+                 <button type="submit" class="button is-success">
+                   <span class="icon is-small">
+                     <i class="fas fa-check"></i>
+                   </span>
+                   <span>Save</span>
+                 </button>
+                 <button class="button is-danger is-outlined">
+                   <span>Delete</span>
+                   <span class="icon is-small">
+                     <i class="fas fa-times"></i>
+                   </span>
+                 </button>
+                 </div>
+             </div>
+  
+            </form>
+
+{% endblock %}
+{% block js %} 
+<script  type="text/javascript" src="{% static 'js/formulario.js' %}"></script>
+{% endblock %}

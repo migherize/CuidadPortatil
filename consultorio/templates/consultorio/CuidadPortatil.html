@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title%} CUIDAD PORTATIL {% endblock %}</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+
+<section class="hero is-info is-fullheight">
+	  <!-- Hero head: will stick at the top -->
+	<div class="hero-head">
+	    <header class="navbar">
+	      <div class="container">
+	        <div class="navbar-brand">
+                <img class="" src="{% static 'img/logo.jpeg' %}" width="200px" style="padding-top: 5px;padding-bottom: 8px;">
+                <span class="navbar-burger burger" data-target="navbarMenuHeroC">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </div>
+	        <div id="navbarMenuHeroC" class="navbar-menu">
+	          <div class="navbar-end">
+	            <a class="navbar-item is-active">
+	              Home
+	            </a>
+	            <a class="navbar-item">
+	              Galeria
+	            </a>
+	            <span class="navbar-item">
+	              <a class="button is-success is-inverted" href="{% url 'login' %}">
+	                <span class="icon">
+	                  <i class="fas fa-tooth"></i>
+	                </span>
+	                <span style="color: black;">Iniciar Sesion</span>
+	              </a>
+	            </span>
+	          </div>
+	        </div>
+	      </div>
+	    </header>
+	</div>
+
+	<section class="hero is-light" id="sec3" style="height: 400px;">
+	  	<div class="hero-body" style="text-align: center; padding-top: 0px; padding-right: 48px; padding-left: 48px; height: 260px">
+	  		<img src="{% static 'img/muelo.jpg' %}">
+	    	<div class="container">
+	      		<h1 class="title" style="color: black;">
+			        !Sonrisa el Mundo!
+			    </h1>
+			    <h2 class="subtitle" style="color: black;">
+			        <button class="button is-danger is-hovered">Da el siguiente paso</button>
+			    </h2>
+	    	</div>
+	  		<img src="{% static 'img/muela.jpg' %}">
+	  	</div>
+	</section>
+
+	<section class="hero is-medium is-info is-bold sec3" id="sec4">
+	  <div class="columns">
+	  		<div class="column">
+		   		<div style="padding: 50px">
+	  				<div id="imagen">	
+  						<div id="info" style="text-align:center;">
+  							<h2 class=" title" style="height:50px; width:400px; margin:0px auto; padding-bottom: 30px;">NUESTROS SERVICIOS</h2>
+  							<table style="width:100%;"> 
+	  							<tr>
+	    							<td style="width: 33%; text-align: center; vertical-align: top;">Encías</td>
+								    <td style="width: 33%; text-align: center; vertical-align: top;">Cirujias</td>
+								    <td style="width: 33%; text-align: center; vertical-align: top;">Coronas</td>
+								</tr>
+								<tr style="border: 100px">
+								    <td style="width: 33%; text-align: center; vertical-align: top;">Protesis Dentales</td>
+								    <td style="width: 33%; text-align: center; vertical-align: top;">Tratamiento de Conducto</td>
+								    <td style="width: 33%; text-align: center; vertical-align: top;">Limpiezas</td>
+								</tr>
+								<tr>
+								    <td style="width: 33%; text-align: center; vertical-align: top;">Dientes</td>
+								    <td style="width: 33%; text-align: center; vertical-align: top;">Muelas</td>
+								    <td style="width: 33%; text-align: center; vertical-align: top;">Maxilares</td>
+	  							</tr>
+	  							<tr>
+								    <td style="width: 33%; text-align: center; vertical-align: top;">Ortodoncia</td>
+								    <td style="width: 33%; text-align: center; vertical-align: top;">Caries</td>
+								    <td style="width: 33%; text-align: center; vertical-align: top;">Endodoncia</td>
+	  							</tr>
+							</table>  							
+  							<button class="button is-primary is-inverted is-outlined" style="margin: center; margin-top:200px ; ">  Pedir Una Cita >></button>
+  						</div>
+	  				</div>
+	  			</div>
+		  	</div>
+		</div>
+	</section>
+
+	<section class="hero is-light">
+		<div class="columns">
+		 	<div class="column">
+				<div class="hero-body" style="margin-top: 120px; padding-left: 100px;">
+			    	<div class="container">
+			      		<h1 class="title" style="color: black;">
+					        Odontologia Para niños
+					    </h1>
+					    <h2 class="subtitle" style="color: black;">
+					        Tu mejor sonrisa, nuestra mayor felicidad.
+					    </h2>
+					    <a class="ejemplo1 title">CONSULTA</a>
+			    	</div>
+			  	</div>
+			</div>
+			
+			<div class="column">
+		   		<div>
+	  				<figure class="image is-5by3">
+  						<img src="{% static 'img/ninos.jpg' %}">
+					</figure>
+	  			</div>
+		  	</div>
+		</div>
+	</section>
+
+	<section class="hero is-medium is-info is-bold sec4">
+	  <div class="hero-foot" id="destino">
+			<section class="">
+			    <div class="container">
+			  		<div class="columns">
+					  	<div class="column is-4">
+					  		<div class="card-content hero">
+					  			<div class="column is-flex is-horizontal-center" style="justify-content: center;">
+						  			<figure class="image is-centered is-256x256" style="vertical-align: center; margin-bottom: 30px;">
+	  									<img class="is-rounded is-centered" style="height: 256px; width: 256px;" src="{% static 'img/virgen-de-la-paz.jpg' %}">
+									</figure>
+								</div>
+								<section class="is-dark" style="text-align: center;">
+									<h1 class=" title is-4"> <i class="fas fa-phone"></i> +58 416 6020620</h1>	
+									<h5 class=" title is-5">cuidadportatil@gmail.com</h5>
+									<span>
+										<a href=""> <i class="fab fa-facebook" style="color: black;"></i></a>
+										<a href="https://api.whatsapp.com/send?phone=584166020620&text=Te%20atenderemos%20lo%20mas%20pronto%20posible..." style="margin-left: 20px; margin-right:20px;"> <i class="fab fa-whatsapp" style="color: black;"></i></a>
+										<a href=""> <i class="fab fa-instagram" style="color: black;"></i></a>
+									</span>
+								</section>
+
+					  		</div>
+					  	</div>
+					  	<div class="column is-4" style="margin-right: 20px; margin-left: 20px; margin-top:20px; ">
+
+					  		<form class="card-content hero has-text-link" style="padding-top: 50px;">
+					  			<div class="field">		
+									<label class="label  is-centered">
+										<h3 class="title is-3" style="text-align: center;">CONTACTANOS </h3>
+									</label>
+
+									<div class="field">
+										<label class="label">Email</label>
+										<div class="control has-icons-left has-icons-right">
+										  <input class="input" type="email" placeholder="Email input" value="">
+										  <span class="icon is-small is-left">
+											<i class="fas fa-envelope"></i>
+										  </span>
+										  
+										</div>
+									</div>
+
+									<div class="field">
+										<label class="label">Message</label>
+										<div class="control">
+										  <textarea class="textarea" placeholder="Textarea"></textarea>
+										</div>
+									  </div>	
+								</div>
+					  		</form>
+						  						
+								<div class="control">
+								  <button type="button" class=" button is-link is-medium is-fullwidth" onclick="obtenerCodigo()">Enviar</button>
+								</div>
+					  	</div>
+					  	<div class="column is-4">
+					  		<div class="card-content hero">
+					  			<div class="column is-flex is-horizontal-center" style="justify-content: center;">
+
+						  			<figure class="image is-centered is-256x256" style="vertical-align: center; margin-bottom: 30px;">
+						  				<iframe class="is-rounded is-centered" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d246.04031680501265!2d-70.43979104164839!3d9.364642239515447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e62d536f9aed881%3A0x817c04fc4bbbf884!2sAvenida%20Independencia%2C%20Trujillo%203150%2C%20Trujillo!5e0!3m2!1ses!2sve!4v1600533358215!5m2!1ses!2sve" width="256" height="256" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+									</figure>
+								</div>
+								<section class="is-dark" style="text-align: center;">
+									<h1 class=" title is-4"> <i class="fas fa-phone"></i> +58 416 6020620</h1>	
+									<h5 class=" title is-5">cuidadportatil@gmail.com</h5>
+									<span>
+										<a href=""> <i class="fab fa-facebook" style="color: black;"></i></a>
+										<a href="https://api.whatsapp.com/send?phone=584166020620&text=Te%20atenderemos%20lo%20mas%20pronto%20posible..." style="margin-left: 20px; margin-right:20px;"> <i class="fab fa-whatsapp" style="color: black;"></i></a>
+										<a href=""> <i class="fab fa-instagram" style="color: black;"></i></a>
+									</span>
+								</section>
+
+					  		</div>
+					  	</div>
+			      
+			    	</div>
+			  </div>
+		</section>
+  	</div>
+</body>
+</html>

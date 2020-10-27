@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+  	<link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+	<section class="hero is-info is-fullheight" style="background: hsl(204, 86%, 53%);">
+		<div class="card-content hero" style="width: 50%;margin: auto;">
+			<figure class="image is-centered" id="imagen-cont">
+				<img class="is-rounded is-centered" src="{% static 'img/tegnologia-odontologia.jpg' %}" alt="My image">
+			</figure>
+			<form method="POST">
+				{% csrf_token %}
+				<div class="field">
+					<p class="control has-icons-left">
+					<input class="input" type="text" placeholder="Usuario" name="username">
+					<span class="icon is-small is-left">
+						<i class="fas fa-user"></i>
+					</span>
+					<span class="icon is-small">
+					</span>
+					</p>
+				</div>
+				<div class="field">
+					<p class="control has-icons-left">
+					<input class="input" type="password" placeholder="Password" name="password">
+					<span class="icon is-small is-left">
+						<i class="fas fa-lock"></i>
+					</span>
+					</p>
+				</div>
+				<div class="field">
+					<p class="control">
+					<button class="button is-success" type="submit">
+						Login
+					</button>
+					</p>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>
