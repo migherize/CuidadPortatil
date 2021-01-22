@@ -19,7 +19,7 @@ class Calendar {
         let template = `
             <div class="calendar__header">
                 <button type="button" class="control control--prev">&lt;</button>
-                <span class="month-name">dic 2019</span>
+                <span class="month-name">dic 2020</span>
                 <button type="button" class="control control--next">&gt;</button>
             </div>
             <div class="calendar__body">

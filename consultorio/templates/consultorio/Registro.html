@@ -3,12 +3,26 @@
 
 {% block title%} Registro {% endblock %}
 
-{% block calendario %}   
+{% block registro %}   
+
+{% if formulario%} 
 <form action="" id="formulario" name="formulario"  style="padding: 0px 0px;" method="POST">
   {% csrf_token %}
     <div class="title is-5" style="text-align:center; color: black; padding-top: 10px; background: #edd9f2;">
         <h1>REGISTRO DE PACIENTE</h1>
     </div>
+    
+    {% ifequal registro '1'%} 
+    <div class="title is-5" style="text-align:center; color: black; padding-top: 10px; background: #edd9f2;">
+      <h1>EL paciente anterior Fue exitosamente guardado</h1>
+    </div>
+    {% endifequal %}
+    {% ifequal registro '0'%}
+    <div class="title is-5" style="text-align:center; color: black; padding-top: 10px; background: #edd9f2;">
+      <h1>EL paciente anterior no fue registrado Faltaron datos.</h1>
+    </div>
+    {% endifequal %}
+    
     <div class="title is-4" style="text-align:center; color: black; padding-top: 10px; background: mediumorchid;">
       <h4>Datos Personales</h4>
     </div>
@@ -18,7 +32,7 @@
               <div class="field">
                     <label class="label">Nombre:</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input" type="text" placeholder="Nombre del paciente" value="" name="Nombre" id="Nombre">
+                        <input class="input" type="text" placeholder="Nombre del paciente" value="" name="Nombre" id="Nombre" required>
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
@@ -53,9 +67,32 @@
               </div>
             </div>
             <div class="field"> 
-              <label  class="label" for="fecha" style="color: black;">Fecha de Nacimiento:</label>
-              <input type="date" id="Edad" name="Edad">
+              <div class="control">
+                <label  class="label" for="fecha" style="color: black; margin-bottom: 15px;">Fecha de Nacimiento:</label>
+                <input type="date" id="Edad" name="Edad" style="margin-bottom: 10px;">
+              </div>
             </div>
+            <div class="field">
+              <label class="label">Foto:</label>
+              <div class="file has-name">
+                <label class="file-label">
+                  <input class="file-input" type="file" name="url" id="archivoInput" onchange="return validarExt()"/>
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                     Buscar foto
+                    </span>
+                  </span>
+                  <div id="visorArchivo">
+
+                  </div>
+                  
+                </label>
+              </div>
+          </div>
+
             <div class="field" style="padding-top: 30px;"> 
               <label class="label" required> 
                 <i class="fas fa-venus-mars"> </i> Sexo: 
@@ -67,119 +104,759 @@
                 </label>
               </label>
             </div>
-          <div class="column is-6">
-            <div class="container">
-              <div class="field">
-                <label class="label">Direccion:</label>
-                <div class="control has-icons-left has-icons-right">
-                  <input class="input" type="text" placeholder="Direccion" value="" name="Direccion" id="Direccion">
-                  <span class="icon is-small is-left">
-                      <i class="fas fa-user"></i>
-                  </span>
-                  <span class="icon is-small is-right">
-                    <i id="Dcheck" class="fas"></i>
-                  </span>
+         </div>
+      </div>
+      <div class="column is-6">
+        <div class="container">
+          <div class="field">
+            <label class="label">Direccion:</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" type="text" placeholder="Direccion" value="" name="Direccion" id="Direccion">
+              <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i id="Dcheck" class="fas"></i>
+              </span>
+          </div>
+          </div>
+          <div class="field">
+            <label class="label">Ocupación:</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" type="text" placeholder="Trabajo" value="" name="Ocupacion" id="Ocupacion">
+              <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i id="Ocheck" class="fas"></i>
+              </span>
+          </div>
+          </div>
+          <div class="field">
+            <div class="columns">
+              <div class="column">
+              <label class="label">Telefono</label>   
+              <div class="field has-addons">
+                <p class="control is-expanded">
+                  <input class="input" type="text" name="movil" placeholder="Telefono">
+                </p>
+                <p class="control">
+                </p>
               </div>
               </div>
-              <div class="field">
-                <label class="label">Ocupación:</label>
-                <div class="control has-icons-left has-icons-right">
-                  <input class="input" type="text" placeholder="Trabajo" value="" name="Ocupacion" id="Ocupacion">
-                  <span class="icon is-small is-left">
-                      <i class="fas fa-user"></i>
-                  </span>
-                  <span class="icon is-small is-right">
-                    <i id="Ocheck" class="fas"></i>
-                  </span>
-              </div>
-              </div>
-              <div class="field">
-                <div class="columns">
-                  <div class="column">
-                  <label class="label">Telefono</label>   
-                  <div class="field has-addons">
-                    <p class="control">
-                      <span class="select">
-                        <select>
-                          <option>+</option>
-                          <option>0416</option>
-                          <option>0426</option>
-                          <option>0412</option>
-                          <option>0414</option>
-                          <option>0424</option>
-                        </select>
-                      </span>
-                    </p>
-                    <p class="control is-expanded">
-                      <input class="input" type="text" placeholder="Telefono">
-                    </p>
-                    <p class="control">
-                    </p>
-                  </div>
-                  </div>
-                  <div class="column">
-                    <label class="label">Telefono Casa</label> 
-                    <div class="field has-addons">
-                      <p class="control">
-                        <span class="select">
-                          <select>
-                            <option>+</option>
-                            <option>0416</option>
-                            <option>0426</option>
-                            <option>0412</option>
-                            <option>0414</option>
-                            <option>0424</option>
-                          </select>
-                        </span>
-                      </p>
-                      <p class="control is-expanded">
-                        <input class="input" type="text" placeholder="Telefono">
-                      </p>
-                      <p class="control">
-                      </p>
-                    </div>
-                  </div>
+              <div class="column">
+                <label class="label">Telefono Casa</label> 
+                <div class="field has-addons">
+                  <p class="control is-expanded">
+                    <input class="input" type="text" name="casa" placeholder="Telefono">
+                  </p>
+                  <p class="control">
+                  </p>
                 </div>
-              </div>                    
-              <div class="field">
-                <label class="label">Correo</label>
-                  <div class="control has-icons-left has-icons-right">
-                    <input class="input is-danger" type="email" placeholder="Email input" value="" name="Correo">
-                  </div>
-              
-              </div>                         
-              <div class="field">
-                <label class="label">Motivo:</label>
-                <div class="control">
-                    <input class="input" type="text" placeholder="Text input" name="Motivo">
-                </div>
-              </div>
-              <div class="field"> 
-                <label  class="label" for="fecha" style="color: black;">Fecha de Registro:</label>
-                <input type="date" id="unir" name="fecha_ini">
               </div>
             </div>
-            
+          </div>                    
+          <div class="field">
+            <label class="label">Correo</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input" type="email" placeholder="Email input" value="" name="Correo">
+              </div>
+          
+          </div>                         
+          <div class="field">
+            <label class="label">Motivo:</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Text input" name="Motivo">
+            </div>
           </div>
-
+          <div class="field"> 
+            <label  class="label" for="fecha" style="color: black;">Fecha de Registro:</label>
+            <input type="date" id="unir" name="fecha_ini">
+          </div>
+        </div>
+        
+      </div>
     </div>
+    <div class="container">
+      <div class="title is-4" style="text-align:center; color: black; padding-top: 10px; background: mediumorchid;">
+        <h4>Antecedentes Médicos Odontologicos</h4>
+      </div>
+      <div class="field">
+        <label class="label">Antecedente Patólogicos Personales:</label>
+        <div class="control">
+            <input class="input" type="text" name="Personales" placeholder="Text input">
+        </div>
+      </div>
+        <div class="field">
+          <label class="label">Antecedente Patólogicos Familiares:</label>
+          <div class="control">
+              <input class="input" type="text" name="Familiares" placeholder="Text input">
+          </div>
+        </div>
+          <div class="field">
+            <label class="label">Reacciones Alergica o Medicamentos:</label>
+            <div class="control">
+                <input class="input" type="text" name="Alergicos" placeholder="Text input">
+            </div>
+          </div>
+            <div class="field">
+              <label class="label">Antecedente de Hemorragias:</label>
+              <div class="control">
+                  <input class="input" type="text" name="Hemorragias" placeholder="Text input">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Está tomando algun medicamento:</label>
+              <div class="control">
+                  <input class="input" type="text" name="otras" placeholder="Text input">
+              </div>
+            </div>
+              
+    </div>
+    <div class="container">
+      <div class="field" style="color: black;">
+        <div class="title is-4" style="text-align:center; color: black; padding-top: 10px; margin-top: 10px; background: mediumorchid;">
+          <h4>Hábitos Cepillado</h4>
+        </div>
+            <table style="width:100%;"> 
+              <tr style="border: 100px">
+                    <td style="width: 33%;">Fuma</td>
+                    <td style="width: 33%;"> 
+                        <div class="field">
+                            <div class="control">
+                                <label class="radio">
+                                    <input type="radio" name="B_fuma" value="Y" onclick="preguntasF()">
+                                  Si
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="B_fuma" value="N"  onclick="limpiarF()">
+                                No
+                                </label>
+                            </div>
+                            <div id="crear_preguntaF">
+                            </div>
+                        </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width: 33%;">Café</td>
+                    <td style="width: 33%;">                        
+                      <div class="field">
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="B_cafe" value="Y" onclick="preguntasC()">
+                            Si
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="B_cafe" value="N"  onclick="limpiarC()">
+                            No
+                            </label>
+                        </div>
+                        <div id="crear_preguntaC">
+                        </div>
+                      </div> 
+                    </td>
+                  </tr>
+                    <tr>
+                        <td style="width: 33%;">Otros:</td>
+                        <td style="width: 33%;"> 
+                          <div class="field">
+                            <div class="control">
+                              <label class="radio">
+                                  <input type="radio" name="B_otros" value="Y" onclick="preguntasO()">
+                              Si
+                              </label>
+                              <label class="radio">
+                                  <input type="radio" name="B_otros" value="N" onclick="limpiarO()">
+                              No
+                              </label>
+                            </div>
+                          <div id="crear_preguntaO">
+                          </div>
+                        </div>  </td>
+                    </tr>
+            </table>  			
+      </div>
+      <div class="field">
+        <div class="title is-6" style="text-align:center; color: black; padding-top: 10px; background:#edd9f2;">
+          <h4>EXAMEN CLINICO ODONTOLOGICO INTRABUCAL:</h4>
+        </div>
+          <label class="label"></label>
+          <div class="control">
+            <textarea class="textarea" name="texto" placeholder="Textarea"></textarea>
+          </div>
+      </div>
+      <div class="field" style="color: black; ">
+        <div class="title is-6" style="text-align:center; color: black; padding-top: 10px; background: mediumorchid;">
+          <h4>EXAMEN CLINICO ODONTOLOGICO EXTRABUCAL</h4>
+        </div>
+        <table style="width:100%;"> 
+          <tr style="border: 100px">
+            <td style="width: 30%;">Perfil</td>
+            <td style="width: 70%;"> 
+              <div class="field">
+                <div class="control">
+                  <input class="input" type="text" name="Perfil" placeholder="Text input">
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 30%;">Piel o Mucosa</td>
+            <td style="width: 70%;"> 
+              <div class="field">
+                <div class="control">
+                  <input class="input" type="text" name="Piel_Mucosa" placeholder="Text input">
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 30%;">ATM:</td>
+            <td style="width: 70%;"> 
+              <div class="field">
+                <div class="control">
+                  <input class="input" type="text" name="ATM" placeholder="Text input">
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 33%;">Otros:</td>
+            <td style="width: 33%;"> 
+              <div class="field">
+                <div class="control">
+                  <input class="input" type="text"  name="otros" placeholder="Text input">
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table> 
+        <div class="title is-6" style="text-align:center; color: black; padding-top: 10px; background: mediumorchid;">
+          <h4>ODONTODIAGRAMA</h4>
+        </div>
+        <div class="columns" style="margin-top: 10px; margin-bottom: 10px;">
+          <div class="columnn is-6" style="padding-right: 10px; padding-left: 10px;">
+            <figure class="image is-480x480">
+              <div style="width: 480px;height: 250px; background-image: url(/static/img/odonto1.png);background-size: contain;">
+                <div class="odontodiagram" style="padding-top:50px ;">
+                  <div class="checkbox" style="margin-left: 8px;">
+                    <input type="hidden" name="a0"  style="margin-left: 8px;" value="0">
+                    <input type="checkbox" name="a0" class="input-assumpte" id="input-confidencial"  value="1">
+                    <label for="input-confidencial"></label></div>
+                  <div class="checkbox" style="margin-left: 14px;">
+                    <input type="hidden" name="a1" style="margin-left: 16px;" value="0">
+                    <input type="checkbox"name="a1" class="input-assumpte" id="input-confidencial2"  value="1">  
+                    <label for="input-confidencial2"></label></div>
 
+                  <div class="checkbox" style="margin-left: 14px;">
+                    <input type="hidden" name="a2"  value="0" style="margin-left: 18px;">
+                    <input type="checkbox"name="a2" class="input-assumpte" id="input-confidencial3" value="1" >
+                    <label for="input-confidencial3"></label></div>
+
+                  <div class="checkbox" style="margin-left: 12px;top: 5px;">
+                    <input type="hidden"  name="a3" value="0"  style="margin-left: 12px;">
+                    <input type="checkbox" name="a3" class="input-assumpte" id="input-confidencial4" value="1" >
+                    <label for="input-confidencial4"></label></div>
+
+                  <div class="checkbox" style="margin-left: 2px;top: 8px;"> 
+                    <input type="hidden" name="a4"  value="0" style="margin-left: 8px;">
+                    <input type="checkbox"name="a4" class="input-assumpte" id="input-confidencial5" value="1" >
+                    <label for="input-confidencial5"></label></div>
+
+                  <div class="checkbox" style="margin-left: 8px;top: 8px;">
+                    <input type="hidden" name="a5"  value="0" style="margin-left: 8px;">
+                    <input type="checkbox"name="a5" class="input-assumpte" id="input-confidencial6" value="1" >
+                    <label for="input-confidencial6"></label></div>
+
+                  <div class="checkbox" style="margin-left: 5px; top: 12px;">
+                    <input type="hidden" name="a6"  value="0" style="margin-left: 10px;">
+                    <input type="checkbox"name="a6" class="input-assumpte" id="input-confidencial7" value="1" >
+                    <label for="input-confidencial7"></label></div>
+
+                  <div class="checkbox" style="margin-left: 9px;top: 13px;">
+                    <input type="hidden" name="a7"  value="0" style="margin-left: 12px;">
+                    <input type="checkbox"name="a7" class="input-assumpte" id="input-confidencial8" value="1" >
+                    <label for="input-confidencial8"></label></div>
+
+                  <div class="checkbox" style="margin-left: 9px;top: 13px;">
+                    <input type="hidden" name="a8"  value="0" style="margin-left: 12px;">
+                    <input type="checkbox"name="a8" class="input-assumpte" id="input-confidencial9" value="1" >
+                    <label for="input-confidencial9"></label></div>
+
+                  <div class="checkbox" style="margin-left: 9px;top: 12px;">
+                    <input type="hidden"name="a9"  value="0"  tyle="margin-left: 12px;">
+                    <input type="checkbox"name="a9" class="input-assumpte" id="input-confidencial10" value="1" >
+                    <label for="input-confidencial10"></label></div>
+
+                  <div class="checkbox" style="margin-left: 6px;top: 10px;">
+                    <input type="hidden"name="a10" value="0" style="margin-left: 8px;">
+                    <input type="checkbox"name="a10" class="input-assumpte" id="input-confidencial11" value="1" >
+                    <label for="input-confidencial11"></label></div>
+                  <div class="checkbox" style="margin-left: 6px;top: 8px;">
+                    <input type="hidden"name="a11" value="0" style="margin-left: 10px;">
+                    <input type="checkbox"name="a11" class="input-assumpte" id="input-confidencial12" value="1">
+                    <label for="input-confidencial12"></label></div>
+                  <div class="checkbox" style="margin-left: 6px;top: 7px;">
+                    <input type="hidden"name="a12" value="0" style="margin-left: 8px;">
+                    <input type="checkbox"name="a12" class="input-assumpte" id="input-confidencial13" value="1" >
+                    <label for="input-confidencial13"></label></div>
+                  <div class="checkbox" style="margin-left: 8px;top: 3px;"> 
+                    <input type="hidden"name="a13" value="0" style="margin-left: 15px;">
+                    <input type="checkbox"name="a13" class="input-assumpte" id="input-confidencial14" value="1" >
+                    <label for="input-confidencial14"></label></div>
+                  <div class="checkbox"style="margin-left: 15px;">
+                    <input type="hidden"name="a14" value="0" style="margin-left: 15px;">
+                    <input type="checkbox"name="a14" class="input-assumpte" id="input-confidencial15" value="1" >
+                    <label for="input-confidencial15"></label></div>
+                    <div class="checkbox" style="margin-left: 14px;">
+                      <input type="hidden"name="a15" value="0" style="margin-left: 17px;">
+                      <input type="checkbox"name="a15" class="input-assumpte" id="input-confidencial16" value="1" >
+                      <label for="input-confidencial16"></label></div>
+                    </div>
+                  
+                <div class="odontodiagram" style="padding-top:36px ;">
+                  <div class="checkbox" style="margin-left: 9px;">
+                  <input type="hidden" name="a16" value="0" style="margin-left: 10px;">
+                  <input type="checkbox" name="a16" class="input-assumpte" id="input-confidencial17" value="1" >
+                  <label for="input-confidencial17"></label></div>
+                  
+                  <div class="checkbox" style="margin-left: 14px;">
+                  <input type="hidden" name="a17" value="0" style="margin-left: 16px;">
+                  <input type="checkbox" name="a17" class="input-assumpte" id="input-confidencial18" value="1" >
+                  <label for="input-confidencial18"></label></div>
+
+                  <div class="checkbox" style="margin-left: 14px;">
+                  <input type="hidden" name="a18" value="0" style="margin-left: 18px;">
+                  <input type="checkbox" name="a18" class="input-assumpte" id="input-confidencial19" value="1" >
+                  <label for="input-confidencial19"></label></div>
+                  
+                  <div class="checkbox" style="margin-left: 9px;top: 1px;">
+                  <input type="hidden" name="a19" value="0" style="margin-left: 12px;">
+                  <input type="checkbox" name="a19" class="input-assumpte" id="input-confidencial20" value="1" >
+                  <label for="input-confidencial20"></label></div>
+
+                  <div class="checkbox" style="margin-left: 5px;margin-right: 164px;top: 2px;">
+                    <input type="hidden" name="a20" value="0" style="margin-left: 8px;margin-right: 168px;">
+                    <input type="checkbox" name="a20" value="1" class="input-assumpte" id="input-confidencial21" >
+                    <label for="input-confidencial21"></label></div>
+                  
+                  <div class="checkbox" style="margin-left: 10px;top: 2px;">
+                  <input type="hidden" name="a21" value="0" style="margin-left: 10px;">
+                  <input type="checkbox" name="a21" value="1" class="input-assumpte" id="input-confidencial22" >
+                  <label for="input-confidencial22"></label></div>
+                  
+                  <div class="checkbox" style="margin-left: 6px;">
+                  <input type="hidden" name="a22" value="0" style="margin-left: 8px;">
+                  <input type="checkbox" name="a22" value="1" class="input-assumpte" id="input-confidencial23" >
+                  <label for="input-confidencial23"></label></div>
+                  
+                  <div class="checkbox" style="margin-left: 10px;">
+                  <input type="hidden" name="a23" value="0" style="margin-left: 15px;">
+                  <input type="checkbox" name="a23" value="1" class="input-assumpte" id="input-confidencial24" >
+                  <label for="input-confidencial24"></label></div>
+                  
+                  <div class="checkbox" style="margin-left: 12px;">
+                    <input type="hidden" name="a24" value="0" style="margin-left: 15px;">
+                    <input type="checkbox" name="a24" value="1" class="input-assumpte" id="input-confidencial25" >
+                    <label for="input-confidencial25"></label></div>
+
+                  <div class="checkbox" style="margin-left: 15px;bottom: 2px;">
+                    <input type="hidden" name="a25" value="0" style="margin-left: 17px;">
+                    <input type="checkbox" name="a25" value="1" class="input-assumpte" id="input-confidencial26" >
+                    <label for="input-confidencial26"></label></div>           
+                </div>
+                
+                <div class="odontodiagram" style="padding-top:75px ;">
+                
+                <div class="checkbox" style="margin-left: 7px;">
+                  <input type="hidden" name="a26" value="0" style="margin-left: 10px;">
+                  <input type="checkbox" name="a26" class="input-assumpte" id="input-confidencial27" value="1" >
+                  <label for="input-confidencial27"></label></div>
+
+                <div class="checkbox" style="margin-left: 14px;">
+                  <input type="hidden" name="a27" value="0" style="margin-left: 16px;">
+                  <input type="checkbox" name="a27" class="input-assumpte" id="input-confidencial28" value="1" >
+                  <label for="input-confidencial28"></label></div>
+
+                <div class="checkbox" style="margin-left: 14px;">
+                  <input type="hidden" name="a28" value="0" style="margin-left: 18px;">
+                  <input type="checkbox" name="a28" class="input-assumpte" id="input-confidencial29" value="1" >
+                  <label for="input-confidencial29"></label></div>
+
+                <div class="checkbox" style="margin-left: 10px;top: 6px;">
+                  <input type="hidden" name="a29" value="0" style="margin-left: 12px;">
+                  <input type="checkbox" name="a29" class="input-assumpte" id="input-confidencial30" value="1" >
+                  <label for="input-confidencial30"></label></div>
+
+                <div class="checkbox" style="margin-left: 5px;top: 8px;">
+                  <input type="hidden" name="a30" value="0" style="margin-left: 8px;">
+                  <input type="checkbox" name="a30" class="input-assumpte" id="input-confidencial31" value="1" >
+                  <label for="input-confidencial31"></label></div>
+                
+                <div class="checkbox" style="margin-left: 6px;top: 10px;">
+                  <input type="hidden" name="a31" value="0" style="margin-left: 8px;">
+                  <input type="checkbox" name="a31" class="input-assumpte" id="input-confidencial32" value="1" >
+                  <label for="input-confidencial32"></label></div>
+                
+                <div class="checkbox" style="margin-left: 6px;top: 12px;">
+                  <input type="hidden" name="a32" value="0" style="margin-left: 10px;">
+                  <input type="checkbox" name="a32" class="input-assumpte" id="input-confidencial33" value="1" >
+                  <label for="input-confidencial33"></label></div>
+                <div class="checkbox" style="margin-left: 10px;top: 12px;">
+                  <input type="hidden" name="a33" value="0" style="margin-left: 12px;">
+                  <input type="checkbox" name="a33" class="input-assumpte" id="input-confidencial34" value="1" >
+                  <label for="input-confidencial34"></label></div>
+
+                <div class="checkbox" style="margin-left: 8px;top: 12px;">
+                  <input type="hidden" name="a34" value="0" style="margin-left: 12px;">
+                  <input type="checkbox" name="a34" class="input-assumpte" id="input-confidencial35" value="1" >
+                  <label for="input-confidencial35"></label></div>
+                <div class="checkbox" style="margin-left: 9px;top: 12px;">
+                  <input type="hidden" name="a35" value="0" style="margin-left: 12px;">
+                  <input type="checkbox" name="a35" class="input-assumpte" id="input-confidencial36" value="1" >
+                  <label for="input-confidencial36"></label></div>
+                <div class="checkbox" style="margin-left: 6px;top: 10px;">
+                  <input type="hidden" name="a36" value="0" style="margin-left: 8px;">
+                  <input type="checkbox" name="a36" class="input-assumpte" id="input-confidencial37" value="1" >
+                  <label for="input-confidencial37"></label></div>
+                <div class="checkbox" style="margin-left: 6px;top: 8px;">
+                  <input type="hidden" name="a37" value="0" style="margin-left: 10px;">
+                  <input type="checkbox" name="a37" class="input-assumpte" id="input-confidencial38" value="1" >
+                  <label for="input-confidencial38"></label></div>
+                <div class="checkbox" style="margin-left: 6px;top: 8px;">
+                  <input type="hidden" name="a38" value="0" style="margin-left: 8px;">
+                  <input type="checkbox" name="a38" class="input-assumpte" id="input-confidencial39" value="1" >
+                  <label for="input-confidencial39"></label></div>
+                <div class="checkbox" style="margin-left: 10px;top: 5px;">
+                  <input type="hidden" name="a39" value="0" style="margin-left: 15px;">
+                  <input type="checkbox" name="a39" class="input-assumpte" id="input-confidencial40" value="1" >
+                  <label for="input-confidencial40"></label></div>
+  
+                <div class="checkbox" style="margin-left: 15px;top: 2px;">
+                  <input type="hidden" name="a40" value="0" style="margin-left: 15px;">
+                  <input type="checkbox" name="a40" class="input-assumpte" id="input-confidencial41" value="1" >
+                  <label for="input-confidencial41"></label></div>
+                <div class="checkbox" style="margin-left: 13px;">
+                  <input type="hidden" name="a41" value="0" style="margin-left: 17px;">
+                  <input type="checkbox" name="a41" class="input-assumpte" id="input-confidencial42" value="1" >
+                  <label for="input-confidencial42"></label></div>
+                                                                
+              </div>
+                            
+            </figure>
+          </div>
+          <div class="columns is-6" style="padding-right: 10px; margin-top: 5px;" >
+            <figure class="image is-480x480">
+              <div style="width: 480px;height: 240px; background-image: url(/static/img/odonto2.png);background-size: contain;">
+                <div class="odontodiagram" style="padding-top:5px ;">
+                  <div class="checkbox" style="margin-left: 28px; top: 3px;">
+                    <input type="hidden" name= "A0" value="0" >
+                    <input type="checkbox" name= "A0" value="1" class="input-assumpte" id="input-confidencial1" style="margin-left: 29px;">
+                    <label for="input-confidencial1"></label></div>
+                  <div class="checkbox" style="margin-left: 14px; top: 3px;">
+                    <input type="hidden" name= "A1" value="0" >
+                    <input type="checkbox" name= "A1" value="1" class="input-assumpte" id="Ainput-confidencial2" style="margin-left: 16px;">
+                    <label for="Ainput-confidencial2"></label></div>
+
+                  <div class="checkbox" style="margin-left: 11px; top: 3px;">
+                    <input type="hidden" name= "A2" value="0" >
+                    <input type="checkbox" name= "A2" value="1" class="input-assumpte" id="Ainput-confidencial3" style="margin-left: 15px;">
+                    <label for="Ainput-confidencial3"></label></div>
+
+                  <div class="checkbox" style="margin-left: 9px; top: 3px;">
+                    <input type="hidden" name= "A3" value="0" >
+                    <input type="checkbox" name= "A3" value="1" class="input-assumpte" id="Ainput-confidencial4" style="margin-left: 12px;">
+                    <label for="Ainput-confidencial4"></label></div>
+              
+                  <div class="checkbox" style="margin-left: 5px; top: 3px;">
+                    <input type="hidden" name= "A4" value="0" >
+                    <input type="checkbox" name= "A4" value="1" class="input-assumpte" id="Ainput-confidencial5" style="margin-left: 9px;">
+                    <label for="Ainput-confidencial5"></label></div>
+                    
+                  <div class="checkbox" style="margin-left: 6px; top: 3px;">
+                    <input type="hidden" name= "A5" value="0" >
+                    <input type="checkbox" name= "A5" value="1" class="input-assumpte" id="Ainput-confidencial6" style="margin-left: 8px;">
+                    <label for="Ainput-confidencial6"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 3px; top: 3px;">
+                    <input type="hidden" name= "A6" value="0" >
+                    <input type="checkbox" name= "A6" value="1" class="input-assumpte" id="Ainput-confidencial7" style="margin-left: 6px;">
+                    <label for="Ainput-confidencial7"></label>
+                  </div>
+                  
+                  <div class="checkbox" style="margin-left: 0px; top: 3px;">
+                    <input type="hidden" name= "A7" value="0" >
+                    <input type="checkbox" name= "A7" value="1" class="input-assumpte" id="Ainput-confidencial8" style="margin-left: 4px;">
+                    <label for="Ainput-confidencial8"></label>
+                  </div>
+              
+                  <div class="checkbox" style="margin-left: 2px; top: 3px;">
+                    <input type="hidden" name= "A8" value="0" >
+                    <input type="checkbox" name= "A8" value="1" class="input-assumpte" id="Ainput-confidencial9" style="margin-left: 3px;">
+                    <label for="Ainput-confidencial9"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 0px; top: 3px;">
+                    <input type="hidden" name= "A9" value="0" >
+                    <input type="checkbox" name= "A9" value="1" class="input-assumpte" id="Ainput-confidencial10" style="margin-left: 4px;">
+                    <label for="Ainput-confidencial10"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 3px; top: 3px;">
+                    <input type="hidden" name= "A10" value="0" >
+                    <input type="checkbox" name= "A10" value="1" class="input-assumpte" id="Ainput-confidencial11" style="margin-left: 5px;">
+                    <label for="Ainput-confidencial11"></label>
+                  </div>
+                  <div class="checkbox" style="margin-left: 5px;  top: 3px;">
+                    <input type="hidden" name= "A11" value="0" >
+                    <input type="checkbox" name= "A11" value="1" class="input-assumpte" id="Ainput-confidencial12" style="margin-left: 10px;">
+                    <label for="Ainput-confidencial12"></label>
+                  </div>
+                  <div class="checkbox" style="margin-left: 6px;  top: 3px;">
+                    <input type="hidden" name= "A12" value="0" >
+                    <input type="checkbox" name= "A12" value="1" class="input-assumpte" id="Ainput-confidencial13" style="margin-left: 8px;">
+                    <label for="Ainput-confidencial13"></label>
+                  </div>
+                  <div class="checkbox" style="margin-left: 10px; top: 3px;">
+                    <input type="hidden" name= "A13" value="0" >
+                    <input type="checkbox" name= "A13" value="1" class="input-assumpte" id="Ainput-confidencial14" style="margin-left: 12px;">
+                    <label for="Ainput-confidencial14"></label>
+                  </div>
+                  
+                  <div class="checkbox" style="margin-left: 12px; top: 3px;">
+                    <input type="hidden" name= "A14" value="0" >
+                    <input type="checkbox" name= "A14" value="1" class="input-assumpte" id="Ainput-confidencial15" style="margin-left: 15px;">
+                    <label for="Ainput-confidencial15"></label>
+                  </div>
+                  <div class="checkbox" style="margin-left: 12px; top: 3px;">
+                    <input type="hidden" name= "A15" value="0" >
+                    <input type="checkbox" name= "A15" value="1" class="input-assumpte" id="Ainput-confidencial16" style="margin-left: 17px;">
+                    <label for="Ainput-confidencial16"></label>
+                  </div>
+                </div>
+                <div class="odontodiagram" style="padding-top:71px;margin-top: 2px;">
+                                                                                                                                  
+                  <div class="checkbox" style="margin-left: 31px;">
+                    <input type="hidden" name="A16" value="0" >
+                    <input type="checkbox" name="A16" value="1" class="input-assumpte" id="Ainput-confidencial17" style="margin-left: 33px;">
+                    <label for="Ainput-confidencial17"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 12px;">
+                    <input type="hidden" name="A17" value="0">
+                    <input type="checkbox" name="A17" value="1" class="input-assumpte" id="Ainput-confidencial18" style="margin-left: 15px;">
+                    <label for="Ainput-confidencial18"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 13px;">
+                    <input type="hidden" name="A18" value="0">
+                    <input type="checkbox" name="A18" value="1" class="input-assumpte" id="Ainput-confidencial19" style="margin-left: 14px;">
+                    <label for="Ainput-confidencial19"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 9px;">
+                    <input type="hidden" name="A19" value="0">
+                    <input type="checkbox" name="A19" value="1" class="input-assumpte" id="Ainput-confidencial20" style="margin-left: 12px;">
+                    <label for="Ainput-confidencial20"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 5px;margin-right: 135px;">
+                    <input type="hidden" name="A20" value="0">
+                    <input type="checkbox" name="A20" value="1" class="input-assumpte" id="Ainput-confidencial21" style="margin-left: 8px;margin-right: 135px;">
+                    <label for="Ainput-confidencial21"></label>
+                  </div>
+                  
+                  <div class="checkbox" style="margin-left: 6px;">
+                    <input type="hidden" name="A21" value="0" >
+                    <input type="checkbox" name="A21" value="1" class="input-assumpte" id="Ainput-confidencial22" style="margin-left: 10px;">
+                    <label for="Ainput-confidencial22"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 6px;">
+                    <input type="hidden" name="A22" value="0" >
+                    <input type="checkbox" name="A22" value="1" class="input-assumpte" id="Ainput-confidencial23" style="margin-left: 8px;">
+                    <label for="Ainput-confidencial23"></label>
+                  </div>
+                  
+                  <div class="checkbox" style="margin-left: 9px; top: 1px;">
+                    <input type="hidden" name="A23" value="0" >
+                    <input type="checkbox" name="A23" value="1" class="input-assumpte" id="Ainput-confidencial24" style="margin-left: 15px;">
+                    <label for="Ainput-confidencial24"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 14px; top: 1px;">
+                    <input type="hidden" name="A24" value="0" >
+                    <input type="checkbox" name="A24" value="1" class="input-assumpte" id="Ainput-confidencial25" style="margin-left: 15px;">
+                    <label for="Ainput-confidencial25"></label>
+                  </div>
+                  
+                  <div class="checkbox" style="margin-left: 10px;">
+                    <input type="hidden" name="A25" value="0" >
+                    <input type="checkbox" name="A25" value="1" class="input-assumpte" id="Ainput-confidencial26" style="margin-left: 15px;">
+                    <label for="Ainput-confidencial26"></label>
+                  </div>
+                </div>
+                <div class="odontodiagram" style="padding-top:32px ; margin-top: 1px;">
+
+                  <div class="checkbox" style="margin-left: 28px; top: 1px;">
+                    <input type="hidden" name="A26" value="0" >
+                    <input type="checkbox" name="A26" value="1" class="input-assumpte" id="Ainput-confidencial27">
+                    <label for="Ainput-confidencial27"></label>
+                  </div>
+                  
+                  <div class="checkbox" style="margin-left: 14px; top: 1px;">
+                    <input type="hidden" name="A27" value="0" >
+                    <input type="checkbox" name="A27" value="1" class="input-assumpte" id="Ainput-confidencial28">
+                    <label for="Ainput-confidencial28"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 11px; top: 2px;">
+                    <input type="hidden" name="A28" value="0" >
+                    <input type="checkbox" name="A28" value="1" class="input-assumpte" id="Ainput-confidencial29">
+                    <label for="Ainput-confidencial29"></label>
+                  </div>
+                  
+                  <div class="checkbox" style="margin-left: 9px;top: 2px;">
+                    <input type="hidden" name="A29" value="0" >
+                    <input type="checkbox" name="A29" value="1" class="input-assumpte" id="Ainput-confidencial30">
+                    <label for="Ainput-confidencial30"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 5px; top: 2px;" >
+                    <input type="hidden" name="A30" value="0" >
+                    <input type="checkbox" name="A30" value="1" class="input-assumpte" id="Ainput-confidencial31">
+                    <label for="Ainput-confidencial31"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 6px; top: 1px;">
+                    <input type="hidden" name="A31" value="0">
+                    <input type="checkbox" name="A31" value="1" class="input-assumpte" id="Ainput-confidencial32">
+                    <label for="Ainput-confidencial32"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 2px;">
+                    <input type="hidden" name="A32" value="0" >
+                    <input type="checkbox" name="A32" value="1"class="input-assumpte" id="Ainput-confidencial33">
+                    <label for="Ainput-confidencial33"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 1px;">
+                    <input type="hidden" name="A33" value="0" >
+                    <input type="checkbox" name="A33" value="1" class="input-assumpte" id="Ainput-confidencial34">
+                    <label for="Ainput-confidencial34"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 0px;">                  
+                    <input type="hidden" name="A34" value="0" >
+                    <input type="checkbox" name="A34" value="1" class="input-assumpte" id="Ainput-confidencial35">
+                    <label for="Ainput-confidencial35"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 1px;">
+                    <input type="hidden" name="A35" value="0" >
+                    <input type="checkbox" name="A35" value="1" class="input-assumpte" id="Ainput-confidencial36">
+                    <label for="Ainput-confidencial36"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 2px;">
+                    <input type="hidden" name="A36" value="0" >
+                    <input type="checkbox" name="A36" value="1" class="input-assumpte" id="Ainput-confidencial37">
+                    <label for="Ainput-confidencial37"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 6px; top: 2px;">
+                    <input type="hidden" name="A37" value="0" >
+                    <input type="checkbox" name="A37" value="1" class="input-assumpte" id="Ainput-confidencial38">
+                    <label for="Ainput-confidencial38"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 7px; top: 3px;">
+                    <input type="hidden" name="A38" value="0" >
+                    <input type="checkbox" name="A38" value="1" class="input-assumpte" id="Ainput-confidencial39">
+                    <label for="Ainput-confidencial39"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 8px; top: 2px;">                  
+                    <input type="hidden" name="A39" value="0" >
+                    <input type="checkbox" name="A39" value="1" class="input-assumpte" id="Ainput-confidencial40">
+                    <label for="Ainput-confidencial40"></label>
+                  </div>
+
+                  <div class="checkbox" style="margin-left: 13px; top: 2px;">
+                    <input type="hidden" name="A40" value="0" >
+                    <input type="checkbox" name="A40" value="1" class="input-assumpte" id="Ainput-confidencial41">
+                    <label for="Ainput-confidencial41"></label>
+                  </div>
+                  
+                  <div class="checkbox" style="margin-left: 12px;top: 1px;">         
+                    <input type="hidden" name="A41" value="0" >
+                    <input type="checkbox" name="A41" value="1" class="input-assumpte" id="Ainput-confidencial42">
+                    <label for="Ainput-confidencial42"></label>
+                  </div>
+                </div>
+
+              </div>
+              
+            </figure>
+          </div>
+        </div>
+        
+      </div>
+        <div class="field">
+          <label class="label">Diagnostico Odontologico:</label>
+          <div class="control">
+            <textarea class="textarea" name="diagnostico" placeholder="Textarea"></textarea>
+          </div>
+        </div>
+        
+      </div>
              <div class="field is-grouped">
-              <button type="submit" class="button is-success">
+              <button type="submit" class="button is-success" onclick="pregunta()">
                 <span class="icon is-small">
                   <i class="fas fa-check"></i>
                 </span>
-                <span>Save</span>
+                <span>Guardar</span>
               </button>
               <button class="button is-danger is-outlined">
-                <span>Delete</span>
+                <span>Cancelar</span>
                 <span class="icon is-small">
                   <i class="fas fa-times"></i>
                 </span>
               </button>
               </div>
             </form>
-
+  {% endif %}
 {% endblock %}
-{% block js %} 
+{% block js %}
+<script type="text/javascript">
+
+  function validarExt()
+  {
+      var archivoInput = document.getElementById('archivoInput');
+      var archivoRuta = archivoInput.value;
+      var extPermitidas = /(.pdf|.PNG|.jpeg|.png|.jpg)$/i;
+      if(!extPermitidas.exec(archivoRuta)){
+          alert('Asegurese de haber seleccionado un PDF');
+          archivoInput.value = '';
+          return false;
+      }
+  
+      else
+      {
+          //PRevio del PDF
+          if (archivoInput.files && archivoInput.files[0]) 
+          {
+              var visor = new FileReader();
+              visor.onload = function(e) 
+              {
+                  document.getElementById('visorArchivo').innerHTML = 
+                  '<embed src="'+e.target.result+'" width="128" height="128" />';
+              };
+              visor.readAsDataURL(archivoInput.files[0]);
+          }
+      }
+  }
+  </script>
 {% endblock %}

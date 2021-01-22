@@ -5,7 +5,7 @@
 }
 
 :root {
-    --color-bg-calendar: hsl(204, 86%, 53%);
+    --color-bg-calendar: hsl(210, 2%, 40%);
     --color-cell:  #1b1e22;
     --color-cell-disabled: #424649;
 }
@@ -36,7 +36,7 @@
 }
 
 .calendar .control {
-    color: white;
+    color:  mediumorchid;
     font-weight: bold;
     background-color: transparent;
     border: none;

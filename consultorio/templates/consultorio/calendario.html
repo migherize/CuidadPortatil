@@ -5,94 +5,52 @@
 
 {% block calendario %}   
     <div class="title is-4" style="text-align:center; color: black; padding-top: 10px; background: mediumorchid;">
-        <h4>Citas del Dia</h4>
+        <div class="columns">
+          <div class="column is-4">
+
+      <h4>Citas del Dia</h4>
+
+          </div>
+          <div class="column is-8">
+        <h1 id="fecha"></h1>
+
+          </div>
+        </div>  
     </div>
+   
   <div class="columns">
-    <div class="container column is-12">
+    <div class="column is-4" id="calendar" style="background-color: mediumorchid" style="padding-left: 12px;">
 
-      <table class="table is-fullwidth is-striped is-hoverable" style="background: transparent;">
-        <thead>
-          <tr>
-            <th title="Position">Hora</th>
-            <th>Citas</th>
-          </tr>
-        </thead>
-        <tfoot>
-          <tr>
-            <th title="Position">Hora</th>
-            <th>Citas</th>
-          </tr>
-        </tfoot>
-        <tbody>
-          <tr>
-              <th>9:00am</th>
-              <td> <button class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Asignar</button>
-              </td>
-          </tr>
-          <tr>
-              <th>10:00am</th>
-              <td> <button class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Asignar</button>
-              </td>
-          </tr>
-          <tr>
-              <th>11:00am</th>
-              <td> <button class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Asignar</button>
-              </td>
-          </tr>
-          <tr>
-              <th>12:00am</th>
-              <td> <button class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Asignar</button>
-              </td>
-          </tr>
-          <tr>
-              <th>1:00pm</th>
-              <td> <button class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Asignar</button>
-              </td>
-          </tr>
-          <tr>
-              <th>2:00pm</th>
-              <td> <button class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Asignar</button>
-              </td>
-          </tr>
-          <tr>
-              <th>3:00pm</th>
-              <td> <button class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Asignar</button>
-              </td>
-          </tr>
-          
-          <tr class="is-selected">
-            <th>10:00 am</th>
-            <td><a href="https://en.wikipedia.org/wiki/Manchester_City_F.C." title="Manchester City F.C.">Manchester City</a></td>
-          </tr>
-          
-          
-        </tbody>
-    </table>
-  </div>
-  </div>
-  <div class="container">
-    <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
-      <a class="pagination-previous">Previous</a>
-      <a class="pagination-next">Next page</a>
-      <ul class="pagination-list">
-        <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-        <li><span class="pagination-ellipsis">&hellip;</span></li>
-        <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-        <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-        <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-        <li><span class="pagination-ellipsis">&hellip;</span></li>
-        <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-      </ul>
-    </nav>    
-  </div>
 
+    </div>
+    
+    <div class="container column is-8">
+      
+      {% block citas %} {% endblock %}
+  </div>
+  
+</div>
+<form action="" method="POST" style="padding-top: 0px;" id="form_fecha">
+  {% csrf_token %}
+  <input type="text" name="dia" id="dia">
+</form>
+  
 {% endblock %}
 
 {% block js %} 
-    <script type="text/javascript">
-        let calendar = new Calendar('calendar');
-        calendar.getElement().addEventListener('change', e => {
-            console.log(calendar.value().format('LLL'));
+  <script type="text/javascript">
+    document.getElementById("fecha").innerHTML = localStorage.getItem("fecha");
+    
+    let calendar = new Calendar('calendar');
+      calendar.getElement().addEventListener('change', e => {
+        fech = calendar.value().format('LL');
+        f = calendar.value().format('Y-MM-DD');
+        document.getElementById('fecha').innerHTML = fech;
+        document.getElementById('dia').value = f;
+        localStorage.setItem("fecha", fech);
+        localStorage.setItem("fecha2", f); 
+        document.getElementById("form_fecha").submit();
         });
+
       </script>
 {% endblock %}

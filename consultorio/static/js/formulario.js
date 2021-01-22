@@ -12,6 +12,7 @@ const expresiones = {
 }
 
 const validarFormulario = (e) => {
+    console.log("hola");
     switch (e.target.name) {
 		case "Nombre":
             if(expresiones.nombre.test(e.target.value)){

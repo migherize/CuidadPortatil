@@ -11,7 +11,7 @@ class Paciente(models.Model):
     Nombre = models.CharField(max_length=45, null=True, blank=True, default=None)
     Apellido = models.CharField(max_length=45, null=True, blank=True, default=None)
     Cedula = models.CharField(max_length=10, null=True, blank=True, default=None)
-    Edad = models.DateTimeField()
+    Edad = models.DateField()
     Correo = models.CharField(max_length=45, null=True, blank=True, default=None)
     Direccion = models.CharField(max_length=60, null=True, blank=True, default=None)
     Ocupacion = models.CharField(max_length=45, null=True, blank=True, default=None)
@@ -21,12 +21,12 @@ class Paciente(models.Model):
 	)
     sexo = models.CharField(max_length=1, choices = genero)
     Motivo = models.CharField(max_length=45, null=True, blank=True, default=None)
-    fecha_ini = models.DateTimeField()
+    fecha_ini = models.DateField()
     
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     
     def __unicode__(self):
-        return self.user
+        return self.Nombre
 
 class doctores(models.Model):
     iddoctores = models.AutoField(primary_key=True)
@@ -35,17 +35,24 @@ class doctores(models.Model):
     cedula = models.IntegerField()
     especialidad = models.CharField(max_length=45, null=True, blank=True, default=None)
 
+    def __unicode__(self):
+        return self.nombre
 
 class consulta(models.Model):
     idconsulta = models.AutoField(primary_key=True)
     fecha =  models.DateTimeField()
+    motivo = models.CharField(max_length=45, null=True, blank=True, default=None)
+    Tratamiento = models.CharField(max_length=45, null=True, blank=True, default=None)
+    Abono = models.IntegerField(null=True, blank=True)
+    Resta = models.IntegerField(null=True, blank=True)
     sucursal = models.CharField(max_length=45, null=True, blank=True, default=None)
+    ProximaCita =  models.DateTimeField(null=True, blank=True)
 
-    doctores_id = models.OneToOneField(doctores, on_delete=models.CASCADE)
-    user = models.OneToOneField(Paciente, on_delete=models.CASCADE)
+    doctores_id = models.ForeignKey(doctores, on_delete=models.CASCADE)
+    user = models.ForeignKey(Paciente, on_delete=models.CASCADE)
 
     def __unicode__(self):
-    	return self.Paciente_id
+    	return self.user
 
 
 class AntecedentesMedicos(models.Model):
@@ -54,7 +61,7 @@ class AntecedentesMedicos(models.Model):
     Familiares = models.CharField(max_length=45, null=True, blank=True, default=None)
     Alergicos = models.CharField(max_length=45, null=True, blank=True, default=None)
     Hemorragias = models.CharField(max_length=45, null=True, blank=True, default=None)
-    otros = models.CharField(max_length=45, null=True, blank=True, default=None)
+    otras = models.CharField(max_length=45, null=True, blank=True, default=None)
 
     Paciente_id = models.OneToOneField(Paciente, on_delete=models.CASCADE)
 
@@ -63,7 +70,7 @@ class AntecedentesMedicos(models.Model):
 
 class DiagnosticoOdontologico(models.Model):
     idDiagnosticoOdontologico = models.AutoField(primary_key=True)
-    diagnostico = models.CharField(max_length=45, null=True, blank=True, default=None)
+    diagnostico = models.TextField(max_length=500, null=True, blank=True, default=None)
     Paciente_id = models.OneToOneField(Paciente, on_delete=models.CASCADE)
     
     def __unicode__(self):
@@ -102,7 +109,7 @@ class ExtraBucal(models.Model):
 
 class Intrabucal(models.Model):
     idIntrabucal = models.AutoField(primary_key=True)
-    texto = models.CharField(max_length=45, null=True, blank=True, default=None)
+    texto = models.TextField(max_length=500, null=True, blank=True, default=None)
 
     Paciente_id = models.OneToOneField(Paciente, on_delete=models.CASCADE)
 
@@ -111,20 +118,7 @@ class Intrabucal(models.Model):
 
 class Odontodiagrama(models.Model):
     idOdontodiagrama = models.AutoField(primary_key=True)
-    caries = models.CharField(max_length=45, null=True, blank=True, default=None)
-
-    Paciente_id = models.OneToOneField(Paciente, on_delete=models.CASCADE)
-
-    def __unicode__(self):
-    	return self.Paciente_id
-
-class Evolucion(models.Model):
-    idEvolucion = models.AutoField(primary_key=True)
-    Tratamiento = models.CharField(max_length=45, null=True, blank=True, default=None)
-    Fecha =  models.DateTimeField()
-    Abono = models.IntegerField()
-    Resta = models.IntegerField()
-    ProximaCita =  models.DateTimeField()
+    caries = models.CharField(max_length=200, null=True, blank=True, default=None)
 
     Paciente_id = models.OneToOneField(Paciente, on_delete=models.CASCADE)
 
@@ -132,20 +126,38 @@ class Evolucion(models.Model):
     	return self.Paciente_id
 
 # Habitos
-class Fuma(models.Model):
-    idFuma = models.AutoField(primary_key=True)
-    Forma = models.CharField(max_length=45, null=True, blank=True, default=None)
-
-class Cafe(models.Model):
-    idCafe = models.AutoField(primary_key=True)
-    Duracion = models.CharField(max_length=45, null=True, blank=True, default=None)
-
-class Otros(models.Model):
-    idOtros = models.AutoField(primary_key=True)
-    Frecuencia = models.CharField(max_length=45, null=True, blank=True, default=None)
 
 class HabitosCepillado(models.Model):
     idHabitosCepillado = models.AutoField(primary_key=True)
-    Fuma_id = models.OneToOneField(Fuma, on_delete=models.CASCADE)
-    Cafe_id = models.OneToOneField(Cafe, on_delete=models.CASCADE)
-    Otros_id = models.OneToOneField(Otros, on_delete=models.CASCADE)
+    Paciente_id = models.OneToOneField(Paciente, on_delete=models.CASCADE)
+
+class Fuma(models.Model):
+    idFuma = models.AutoField(primary_key=True)
+    booleano = (
+		('Y','Si'),
+		('N','No'),
+	)
+    B_fuma = models.CharField(max_length=1, choices = booleano)
+    Forma = models.CharField(max_length=45, null=True, blank=True, default=None)
+    Fuma_id = models.OneToOneField(HabitosCepillado, on_delete=models.CASCADE)
+
+class Cafe(models.Model):
+    idCafe = models.AutoField(primary_key=True)
+    booleano = (
+		('Y','Si'),
+		('N','No'),
+	)
+    B_cafe = models.CharField(max_length=1, choices = booleano)
+    Duracion = models.CharField(max_length=45, null=True, blank=True, default=None)
+    Cafe_id = models.OneToOneField(HabitosCepillado, on_delete=models.CASCADE)
+
+class Otros(models.Model):
+    idOtros = models.AutoField(primary_key=True)
+    booleano = (
+		('Y','Si'),
+		('N','No'),
+	)
+    B_otros = models.CharField(max_length=1, choices = booleano)
+    Frecuencia = models.CharField(max_length=45, null=True, blank=True, default=None)
+    
+    Otros_id = models.OneToOneField(HabitosCepillado, on_delete=models.CASCADE)

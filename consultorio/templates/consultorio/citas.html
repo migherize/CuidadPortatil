@@ -1,0 +1,350 @@
+{% extends 'consultorio/calendario.html' %}
+{% load static %}
+
+{% block jsini %}
+<script>    
+</script>
+{% endblock %}
+
+{% block citas %}
+<form action="" method="POST" style="padding-top: 0px;">
+    {% csrf_token %}
+    <table class="table is-fullwidth is-striped is-hoverable" style="background: transparent;">
+        <thead>
+            <tr>
+                <th title="Position">Hora</th>
+                <th>Citas</th>
+                <th>Motivo</th>
+                <th></th>
+                <th  style="float: right;">Asignar</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            <tr>
+                <th>9:00am</th> 
+                <th> {% for citas_del_dia in citas_dia %}
+                        {% ifequal citas_del_dia.fecha.hour 9  %}
+                            {{ citas_del_dia.user.Nombre }} {{ citas_del_dia.user.Apellido }}
+                </th> 
+                    <th>{{ citas_del_dia.motivo }}</th>
+                    {%else%}
+                    <th></th>
+                        {% endifequal %}
+                    {% endfor %}
+                    {%if not citas_del_dia%}
+                        <th></th>
+                    {% endif %}
+                <td>
+                     <a onclick="cita(1)" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Citar</a>
+                </td>
+            </tr>
+            <tr id="Asignar">
+                
+            
+            </tr>
+            <tr class="is-selected">
+                {% if paciente %}
+                    {% ifequal hora "09" %}
+                        {% for  b in busqueda %}
+                        <th>{{b.Cedula}}</th>
+                        <th>{{b.Apellido}}</th>
+                        <td>{{b.Nombre}} <a  href="{% url 'citar'%}" type="submit" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Guardar</a>
+                        </td>
+                        {% endfor %}
+                    {% endifequal %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th>10:00am</th>
+                <th> {% for citas_del_dia in citas_dia %}
+                    {% ifequal citas_del_dia.fecha.hour 10  %}
+                        {{ citas_del_dia.user.Nombre }}  {{ citas_del_dia.user.Apellido }} 
+                    </th> 
+                    <th>{{ citas_del_dia.motivo }}</th>
+                    {%else%}
+                    <th></th>
+                    {% endifequal %}
+                {% endfor %}
+                {%if not citas_del_dia%}
+                <th></th>
+            {% endif %}
+                <td> <a onclick="cita(2)" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Citar</a>
+                </td>
+            </tr>
+            <tr id="Asignar2">
+            </tr>
+            <tr class="is-selected">
+                {% if paciente %}
+                    {% ifequal hora "10" %}
+                        {% for  b in busqueda %}
+                        <th>{{b.Cedula}}</th>
+                        <th>{{b.Apellido}}</th>
+                        <td>{{b.Nombre}} <a  href="{% url 'citar'%}" type="submit" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Guardar</a>
+                        </td>
+                        {% endfor %}
+                    {% endifequal %}
+                {% endif %}
+
+            </tr>
+            <tr>
+                <th>11:00am</th>
+                <th> {% for citas_del_dia in citas_dia %}
+                    {% ifequal citas_del_dia.fecha.hour 11  %} 
+                        {{ citas_del_dia.user.Nombre }}  {{ citas_del_dia.user.Apellido }} 
+                    </th> 
+                    <th>{{ citas_del_dia.motivo }}</th>
+                    {%else%}
+                    <th></th>
+                    {% endifequal %}
+                    {% endfor %}
+                    {%if not citas_del_dia%}
+                    <th></th>
+                    {% endif %}
+                <td> <a  onclick="cita(3)" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Citar</a>
+                </td>
+            </tr>
+            <tr id="Asignar3">
+                
+            </tr>
+            <tr class="is-selected">
+                {% if paciente %}
+                    {% ifequal hora "11" %}
+                        {% for  b in busqueda %}
+                        <th>{{b.Cedula}}</th>
+                        <th>{{b.Apellido}}</th>
+                        <td>{{b.Nombre}} <a  href="{% url 'citar'%}" type="submit" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Guardar</a>
+                        </td>
+                        {% endfor %}
+                    {% endifequal %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th>12:00pm</th>
+                <th> {% for citas_del_dia in citas_dia %}
+                    {% ifequal citas_del_dia.fecha.hour 12  %}
+                        {{ citas_del_dia.user.Nombre }}  {{ citas_del_dia.user.Apellido }}
+                    </th> 
+                    <th>{{ citas_del_dia.motivo }}</th>
+                    {%else%}
+                    <th></th>      
+                    {% endifequal %}
+                {% endfor %}
+                {%if not citas_del_dia%}
+                <th></th>
+            {% endif %}
+                <td> <a onclick="cita(4)" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Citar</a>
+                </td>
+            </tr>
+            <tr id="Asignar4">
+                
+            </tr>
+            <tr class="is-selected">
+                {% if paciente %}
+                    {% ifequal hora "12" %}
+                        {% for  b in busqueda %}
+                        <th>{{b.Cedula}}</th>
+                        <th>{{b.Apellido}}</th>
+                        <td>{{b.Nombre}} <a  href="{% url 'citar'%}" type="submit" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Guardar</a>
+                        </td>
+                        {% endfor %}
+                    {% endifequal %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th>1:00pm</th>
+                <th> {% for citas_del_dia in citas_dia %}
+                    {% ifequal citas_del_dia.fecha.hour 1  %}
+                        {{ citas_del_dia.user.Nombre }}  {{ citas_del_dia.user.Apellido }}
+                    </th> 
+                    <th>{{ citas_del_dia.motivo }}</th>
+                    {%else%}
+                    <th></th>
+                    {% endifequal %}
+                    {% endfor %}
+                    {%if not citas_del_dia%}
+                    <th></th>
+                {% endif %}
+                <td> <a onclick="cita(5)" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Citar</a>
+                </td>
+            </tr>
+            <tr id="Asignar5">
+                
+            </tr>
+            <tr class="is-selected">
+                {% if paciente %}
+                    {% ifequal hora "01" %}
+                        {% for  b in busqueda %}
+                        <th>{{b.Cedula}}</th>
+                        <th>{{b.Apellido}}</th>
+                        <td>{{b.Nombre}} <a  href="{% url 'citar'%}" type="submit" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Guardar</a>
+                        </td>
+                        {% endfor %}
+                    {% endifequal %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th>2:00pm</th>
+                <th> {% for citas_del_dia in citas_dia %}
+                    {% ifequal citas_del_dia.fecha.hour 2 %}
+                        {{ citas_del_dia.user.Nombre }}  {{ citas_del_dia.user.Apellido }}
+                    </th> 
+                    <th>{{ citas_del_dia.motivo }}</th>
+                    {%else%}
+                    <th></th>
+                    {% endifequal %}
+                    {% endfor %}
+                    {%if not citas_del_dia%}
+                    <th></th>
+                {% endif %}
+                <td> <a onclick="cita(6)" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Citar</a>
+                </td>
+            </tr>
+            <tr id="Asignar6">
+                
+            </tr>
+            <tr class="is-selected">
+                {% if paciente %}
+                    {% ifequal hora "02" %}
+                        {% for  b in busqueda %}
+                        <th>{{b.Cedula}}</th>
+                        <th>{{b.Apellido}}</th>
+                        <td>{{b.Nombre}} <a  href="{% url 'citar'%}" type="submit" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Guardar</a>
+                        </td>
+                        {% endfor %}
+                    {% endifequal %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th>3:00pm</th>
+                <th> {% for citas_del_dia in citas_dia %}
+                    {% ifequal citas_del_dia.fecha.hour 3  %}
+                        {{ citas_del_dia.user.Nombre }}  {{ citas_del_dia.user.Apellido }}
+                    </th> 
+                    <th>{{ citas_del_dia.motivo }}</th>
+                    {%else%}
+                    <th></th>
+                    {% endifequal %}
+                {% endfor %}
+                {%if not citas_del_dia%}
+                <th></th>
+            {% endif %}
+                <td> <a onclick="cita(7)" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Citar</a>
+                </td>
+            </tr>
+            <tr id="Asignar7">
+                
+            </tr>
+            <tr class="is-selected">
+                {% if paciente %}
+                    {% ifequal hora "03" %}
+                        {% for  b in busqueda %}
+                        <th>{{b.Cedula}}</th>
+                        <th>{{b.Apellido}}</th>
+                        <td>{{b.Nombre}} <a  href="{% url 'citar'%}" type="submit" class="button is-primary is-light is-small" style="margin-left: 50px;float: right;">Guardar</a>
+                        </td>
+                        {% endfor %}
+                        {%else%}
+                        <th></th>
+                    {% endifequal %}
+                {% endif %}
+            </tr>            
+        </tbody>
+    </table>
+</form>
+    {% endblock %}
+
+{% block js %}
+<script>
+
+    document.getElementById("fecha").innerHTML = localStorage.getItem("fecha");
+    
+    let calendar = new Calendar('calendar');
+        calendar.getElement().addEventListener('change', e => {
+            fech = calendar.value().format('LL');
+            f = calendar.value().format('Y-MM-DD');
+            document.getElementById('fecha').innerHTML = fech;
+            localStorage.setItem("fecha", fech);
+            localStorage.setItem("fecha2", f);
+            document.getElementById('dia').value = f;
+            document.getElementById("form_fecha").submit();
+        });
+   
+    function cita(sitio){
+
+        var fech = localStorage.getItem("fecha");
+        var f = localStorage.getItem("fecha2");
+        var dict = {
+            1: "Asignar",
+            2: "Asignar2",
+            3: "Asignar3",
+            4: "Asignar4",
+            5: "Asignar5",
+            6: "Asignar6",
+            7: "Asignar7"
+        };
+        var dict2 = {
+            1: "09:00",
+            2: "10:00",
+            3: "11:00",
+            4: "12:00",
+            5: "01:00",
+            6: "02:00",
+            7: "03:00"
+        };
+        var posicion = dict[sitio];
+        var hora = dict2[sitio];
+        
+        var date = f + 'T' + hora;
+
+        lugar_div = document.getElementById(posicion);
+
+        col0 = document.createElement("th"); // crea un elemento html
+        input0 = document.createElement("input"); // crea un elemento html
+        input0.setAttribute("type","datetime-local");
+        input0.setAttribute("name","date");
+        input0.setAttribute("value",date);
+        input0.setAttribute("disabled","");
+
+        input01 = document.createElement("input"); // crea un elemento html
+        input01.setAttribute("type","hidden");
+        input01.setAttribute("name","date");
+        input01.setAttribute("value",date);
+        
+        contenido_pre = document.createTextNode(fech); // crea un texto para un elemento.
+        col0.appendChild(input0);
+        col0.appendChild(input01);
+        lugar_div.appendChild(col0);
+
+        col1 = document.createElement("th"); // crea un elemento html
+        contenido_pre = document.createTextNode("Cedula: "); // crea un texto para un elemento.
+        col1.appendChild(contenido_pre); // agrega un texto en un elemento.
+        input = document.createElement("input"); // crea un elemento html.
+        input.setAttribute("type","texto");
+        input.setAttribute("name","Citar");
+        col1.appendChild(input); // agrega un texto en un elemento.
+        
+        contenido_pre2 = document.createTextNode("Motivo: "); // crea un texto para un elemento.
+        input2 = document.createElement("input");
+        input2.setAttribute("type","texto");
+        input2.setAttribute("name","motivo");
+        br = document.createElement("br"); // crea un elemento html
+        col1.appendChild(br); // agrega un texto en un elemento.
+        col1.appendChild(contenido_pre2); // agrega un texto en un elemento.
+        col1.appendChild(input2); // agrega un texto en un elemento.
+        
+        lugar_div.appendChild(col1);
+
+        col3 = document.createElement("td"); // crea un elemento html
+        boton = document.createElement("button"); // crea un elemento html
+        boton.setAttribute("type","sumbit");
+        boton.setAttribute("class","button is-primary is-light is-small");
+        boton.setAttribute("style","float:right");
+        contenido_pre = document.createTextNode("Buscar"); // crea un texto para un elemento.
+        boton.appendChild(contenido_pre); // agrega un texto en un elemento.
+        
+        col3.appendChild(boton); // agrega un texto en un elemento.
+        lugar_div.appendChild(col3);
+      };
+</script>
+    {% endblock %} 
